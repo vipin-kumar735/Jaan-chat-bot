@@ -84,7 +84,7 @@ async def clone_txt(client, message):
         except BaseException as e:
             logging.exception("Error while cloning bot.")
             await mi.edit_text(
-                f"⚠️ <b>Error:</b>\n\n<code>{e}</code>\n\n**Forward this message to @THE_VIP_BOY_OP for assistance**"
+                f"⚠️ <b>Error:</b>\n\n<code>{e}</code>\n\n**Forward this message to @ll_hunter_lll for assistance**"
             )
     else:
         await message.reply_text("**Provide Bot Token after /clone Command from @Botfather.**")
@@ -190,4 +190,4 @@ async def delete_all_cloned_bots(client, message):
         os.system(f"kill -9 {os.getpid()} && bash start")
     except Exception as e:
         await a.edit_text(f"**An error occurred while deleting all cloned bots.** {e}")
-        logging.exception(e)
+        logging.exception(e),
