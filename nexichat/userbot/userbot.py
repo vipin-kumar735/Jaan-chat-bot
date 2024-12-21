@@ -24,9 +24,9 @@ class Userbot(Client):
         if config.STRING1:
             await self.one.start()
             try:
-                await self.one.join_chat("ksd_bot_network")
-                await self.one.join_chat("team_riya_support")
-                await self.one.join_chat("KSDHEROKUSUPPORT")
+                await self.one.join_chat("RIYA_network")
+                await self.one.join_chat("riya_CHAT_support")
+                await self.one.join_chat("SIGMA_BOT_NETWORK")
                 await self.one.join_chat("BIT_networks")
 
             except:
