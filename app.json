@@ -11,7 +11,7 @@
     "buildpacks": [{
     "url": "heroku/python"
   }],
-  "repository": "https://files.catbox.moe/hbkwsg.jpg",
+  "repository": "https://github.com/BABY-X-MUSIC/KHUSHI",
   "env": {
     "BOT_TOKEN": {
       "description": "A Bot token from @BotFather",
