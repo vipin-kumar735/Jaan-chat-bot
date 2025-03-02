@@ -12,6 +12,6 @@ BOT_TOKEN = getenv("BOT_TOKEN", "7940019678:AAFnZD4f0dM_PPZm9vbmuv_HGPxw6EjGswo"
 STRING1 = getenv("STRING_SESSION", None)
 MONGO_URL = getenv("MONGO_URL", "mongodb+srv://oliva:oliva123@cluster0.6cohqfv.mongodb.net/?retryWrites=true&w=majority")
 OWNER_ID = int(getenv("OWNER_ID", "7380417336"))
-SUPPORT_GRP = "EsproUpdate"
+SUPPORT_GRP = "EsproSupport"
 UPDATE_CHNL = "EsproUpdate"
 OWNER_USERNAME = "UFC_INOCENT"
