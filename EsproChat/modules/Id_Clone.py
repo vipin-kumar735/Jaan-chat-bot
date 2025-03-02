@@ -24,7 +24,7 @@ async def clone_txt(client, message):
         mi = await message.reply_text("**Checking your String Session...**")
         try:
             ai = Client(
-                name="VIPIDCHATBOT",
+                name="EsproIdChatBot",
                 api_id=config.API_ID,
                 api_hash=config.API_HASH,
                 session_string=str(string_session),
@@ -140,7 +140,7 @@ async def restart_idchatbots():
         async def restart_session(session):
             string_session = session["session"]
             ai = Client(
-                name="VIPIDCHATBOT",
+                name="EsproIdChatBot",
                 api_id=config.API_ID,
                 api_hash=config.API_HASH,
                 session_string=str(string_session),
