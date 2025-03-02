@@ -24,10 +24,9 @@ class Userbot(Client):
         if config.STRING1:
             await self.one.start()
             try:
+                await self.one.join_chat("EsproSupport")
                 await self.one.join_chat("EsproUpdate")
-                await self.one.join_chat("EsproUpdate")
-                await self.one.join_chat("EsproUpdate")
-                await self.one.join_chat("EsproUpdate")
+                
 
             except:
                 pass
