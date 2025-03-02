@@ -2,7 +2,7 @@ import requests
 from MukeshAPI import api
 from pyrogram import filters, Client
 from pyrogram.enums import ChatAction
-from nexichat import nexichat as app
+from EsproChat import EsproChat as app
 
 
 @app.on_message(filters.command(["gemini", "ai", "ask", "chatgpt"]))

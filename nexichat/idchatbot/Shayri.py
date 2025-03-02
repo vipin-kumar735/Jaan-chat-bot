@@ -2,7 +2,7 @@ import random
 from pyrogram import Client
 from pyrogram import filters
 import os
-from nexichat import nexichat
+from EsproChat import EsproChat
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from pyrogram import filters
 import random

@@ -2,7 +2,7 @@ import logging
 import time
 from pymongo import MongoClient
 from Abg import patch
-from nexichat.userbot.userbot import Userbot
+from EsproChat.userbot.userbot import Userbot
 from motor.motor_asyncio import AsyncIOMotorClient as MongoCli
 from pyrogram import Client
 from pyrogram.enums import ParseMode
@@ -73,10 +73,10 @@ async def get_idclone_owner(clone_id):
     return None
 
     
-class nexichat(Client):
+class EsproChat(Client):
     def __init__(self):
         super().__init__(
-            name="nexichat",
+            name="EsproChat",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             bot_token=config.BOT_TOKEN,
@@ -117,6 +117,6 @@ def get_readable_time(seconds: int) -> str:
     ping_time += ":".join(time_list)
     return ping_time
 
-nexichat = nexichat()
+EsproChat = EsproChat()
 userbot = Userbot()
 

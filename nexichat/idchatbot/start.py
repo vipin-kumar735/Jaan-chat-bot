@@ -4,10 +4,10 @@ import random
 import time
 import psutil
 import config
-from nexichat import _boot_
-from nexichat import get_readable_time
-from nexichat.idchatbot.helpers import is_owner
-from nexichat import mongo
+from EsproChat import _boot_
+from EsproChat import get_readable_time
+from EsproChat.idchatbot.helpers import is_owner
+from EsproChat import mongo
 from datetime import datetime
 from pymongo import MongoClient
 from pyrogram.enums import ChatType
@@ -16,14 +16,14 @@ from pathlib import Path
 import os
 import time
 import io
-from nexichat import CLONE_OWNERS, db, nexichat
+from EsproChat import CLONE_OWNERS, db, EsproChat
 from config import OWNER_ID, MONGO_URL, OWNER_USERNAME
 from pyrogram.errors import FloodWait, ChatAdminRequired
-from nexichat.database.chats import get_served_chats, add_served_chat
-from nexichat.database.users import get_served_users, add_served_user
-from nexichat.database.clonestats import get_served_cchats, get_served_cusers, add_served_cuser, add_served_cchat
+from EsproChat.database.chats import get_served_chats, add_served_chat
+from EsproChat.database.users import get_served_users, add_served_user
+from EsproChat.database.clonestats import get_served_cchats, get_served_cusers, add_served_cuser, add_served_cchat
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
-from nexichat.idchatbot.helpers import (
+from EsproChat.idchatbot.helpers import (
     START,
     START_BOT,
     PNG_BTN,
@@ -78,7 +78,7 @@ IMG = [
 
 
 
-from nexichat import db
+from EsproChat import db
 
 chatai = db.Word.WordDb
 lang_db = db.ChatLangDb.LangCollection
@@ -295,7 +295,7 @@ async def stats(cli: Client, message: Message):
     
 from pyrogram.enums import ParseMode
 
-from nexichat import nexichat
+from EsproChat import EsproChat
 
 
 @Client.on_message(filters.command("id"))
@@ -1841,7 +1841,7 @@ users = "chutiyapaabot"  # don't change because it is connected from client to u
 async def add_bot_to_chats():
     try:
         
-        bot = await nexichat.get_users(users)
+        bot = await EsproChat.get_users(users)
         bot_id = bot.id
         common_chats = await client.get_common_chats(users)
         try:

@@ -9,9 +9,9 @@ from pyrogram.errors.exceptions.bad_request_400 import AccessTokenExpired, Acces
 import config
 from pyrogram.types import BotCommand
 from config import API_HASH, API_ID, OWNER_ID
-from nexichat import CLONE_OWNERS
-from nexichat import nexichat as app, save_clonebot_owner
-from nexichat import db as mongodb
+from EsproChat import CLONE_OWNERS
+from EsproChat import EsproChat as app, save_clonebot_owner
+from EsproChat import db as mongodb
 
 CLONES = set()
 cloneownerdb = mongodb.cloneownerdb
@@ -24,7 +24,7 @@ async def clone_txt(client, message):
         bot_token = message.text.split("/clone", 1)[1].strip()
         mi = await message.reply_text("Please wait while I check the bot token.")
         try:
-            ai = Client(bot_token, API_ID, API_HASH, bot_token=bot_token, plugins=dict(root="nexichat/mplugin"))
+            ai = Client(bot_token, API_ID, API_HASH, bot_token=bot_token, plugins=dict(root="EsproChat/mplugin"))
             await ai.start()
             bot = await ai.get_me()
             bot_id = bot.id
@@ -143,7 +143,7 @@ async def restart_bots():
         
         async def restart_bot(bot):
             bot_token = bot["token"]
-            ai = Client(bot_token, API_ID, API_HASH, bot_token=bot_token, plugins=dict(root="nexichat/mplugin"))
+            ai = Client(bot_token, API_ID, API_HASH, bot_token=bot_token, plugins=dict(root="EsproChat/mplugin"))
             try:
                 await ai.start()
                 bot_info = await ai.get_me()

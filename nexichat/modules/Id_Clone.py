@@ -8,9 +8,9 @@ from pyrogram import Client, filters
 from pyrogram.errors.exceptions.bad_request_400 import AccessTokenInvalid
 from pyrogram.types import BotCommand
 from config import API_HASH, API_ID, OWNER_ID
-from nexichat import CLONE_OWNERS
-from nexichat import nexichat as app, save_clonebot_owner, save_idclonebot_owner
-from nexichat import nexichat, db as mongodb
+from EsproChat import CLONE_OWNERS
+from EsproChat import EsproChat as app, save_clonebot_owner, save_idclonebot_owner
+from EsproChat import EsproChat, db as mongodb
 
 IDCLONES = set()
 cloneownerdb = mongodb.cloneownerdb
@@ -29,7 +29,7 @@ async def clone_txt(client, message):
                 api_hash=config.API_HASH,
                 session_string=str(string_session),
                 no_updates=False,
-                plugins=dict(root="nexichat.idchatbot"),
+                plugins=dict(root="EsproChat.idchatbot"),
             )
             await ai.start()
             user = await ai.get_me()
@@ -109,7 +109,7 @@ async def delete_cloned_session(client, message):
             IDCLONES.remove(cloned_session["user_id"])
 
             await ok.edit_text(
-                f"**Your String Session has been removed from my database ✅.**\n\n**Your bot will off after restart @{nexichat.username}**"
+                f"**Your String Session has been removed from my database ✅.**\n\n**Your bot will off after restart @{EsproChat.username}**"
             )
         else:
             await message.reply_text("**⚠️ The provided session is not in the cloned list.**")
@@ -145,7 +145,7 @@ async def restart_idchatbots():
                 api_hash=config.API_HASH,
                 session_string=str(string_session),
                 no_updates=False,
-                plugins=dict(root="nexichat.idchatbot"),
+                plugins=dict(root="EsproChat.idchatbot"),
             )
             try:
                 await ai.start()

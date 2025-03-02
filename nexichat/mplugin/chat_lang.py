@@ -1,9 +1,9 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from nexichat import nexichat as app, mongo, db
+from EsproChat import EsproChat as app, mongo, db
 from MukeshAPI import api
 import asyncio
-from nexichat.mplugin.helpers import chatai, CHATBOT_ON, languages
+from EsproChat.mplugin.helpers import chatai, CHATBOT_ON, languages
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
 
 lang_db = db.ChatLangDb.LangCollection

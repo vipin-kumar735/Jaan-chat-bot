@@ -4,19 +4,19 @@ import random
 import time
 import psutil
 import config
-from nexichat import _boot_
-from nexichat import get_readable_time
-from nexichat import nexichat, mongo
+from EsproChat import _boot_
+from EsproChat import get_readable_time
+from EsproChat import EsproChat, mongo
 from datetime import datetime
 from pymongo import MongoClient
 from pyrogram.enums import ChatType
 from pyrogram import Client, filters
 from config import OWNER_ID, MONGO_URL, OWNER_USERNAME
 from pyrogram.errors import FloodWait, ChatAdminRequired
-from nexichat.database.chats import get_served_chats, add_served_chat
-from nexichat.database.users import get_served_users, add_served_user
+from EsproChat.database.chats import get_served_chats, add_served_chat
+from EsproChat.database.users import get_served_users, add_served_user
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
-from nexichat.modules.helpers import (
+from EsproChat.modules.helpers import (
     START,
     START_BOT,
     PNG_BTN,
@@ -69,7 +69,7 @@ IMG = [
 
 
 
-from nexichat import db
+from EsproChat import db
 
 chatai = db.Word.WordDb
 lang_db = db.ChatLangDb.LangCollection
@@ -96,7 +96,7 @@ async def set_default_status(chat_id):
         print(f"Error setting default status for chat {chat_id}: {e}")
 
 
-@nexichat.on_message(filters.new_chat_members)
+@EsproChat.on_message(filters.new_chat_members)
 async def welcomejej(client, message: Message):
     chat = message.chat
     await add_served_chat(message.chat.id)
@@ -106,7 +106,7 @@ async def welcomejej(client, message: Message):
     try:
         for member in message.new_chat_members:
             
-            if member.id == nexichat.id:
+            if member.id == EsproChat.id:
                 try:
                     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("sᴇʟᴇᴄᴛ ʟᴀɴɢᴜᴀɢᴇ", callback_data="choose_lang")]])    
                     await message.reply_text(text="**тнαикѕ ꜰᴏʀ ᴀᴅᴅɪɴɢ ᴍᴇ ɪɴ ᴛʜɪꜱ ɢʀᴏᴜᴩ.**\n\n**ᴋɪɴᴅʟʏ  ꜱᴇʟᴇᴄᴛ  ʙᴏᴛ  ʟᴀɴɢᴜᴀɢᴇ  ꜰᴏʀ  ᴛʜɪꜱ  ɢʀᴏᴜᴩ  ʙʏ  ᴛʏᴩᴇ  ☞  /lang**", reply_markup=reply_markup)
@@ -114,14 +114,14 @@ async def welcomejej(client, message: Message):
                     print(f"{e}")
                     pass
                 try:
-                    invitelink = await nexichat.export_chat_invite_link(message.chat.id)
+                    invitelink = await EsproChat.export_chat_invite_link(message.chat.id)
                                                                         
                     link = f"[ɢᴇᴛ ʟɪɴᴋ]({invitelink})"
                 except ChatAdminRequired:
                     link = "No Link"
                     
                 try:
-                    groups_photo = await nexichat.download_media(
+                    groups_photo = await EsproChat.download_media(
                         chat.photo.big_file_id, file_name=f"chatpp{chat.id}.png"
                     )
                     chat_photo = (
@@ -132,7 +132,7 @@ async def welcomejej(client, message: Message):
                 except Exception as e:
                     pass
 
-                count = await nexichat.get_chat_members_count(chat.id)
+                count = await EsproChat.get_chat_members_count(chat.id)
                 chats = len(await get_served_chats())
                 username = chat.username if chat.username else "𝐏ʀɪᴠᴀᴛᴇ 𝐆ʀᴏᴜᴘ"
                 msg = (
@@ -149,7 +149,7 @@ async def welcomejej(client, message: Message):
                 try:
                     OWNER = config.OWNER_ID
                     if OWNER:
-                        await nexichat.send_photo(
+                        await EsproChat.send_photo(
                             int(OWNER_ID),
                             photo=chat_photo,
                             caption=msg,
@@ -158,7 +158,7 @@ async def welcomejej(client, message: Message):
                     
                 except Exception as e:
                     print(f"Please Provide me correct owner id for send logs")
-                    await nexichat.send_photo(
+                    await EsproChat.send_photo(
                         int(OWNER_ID),
                         photo=chat_photo,
                         caption=msg,
@@ -172,7 +172,7 @@ import os
 import time
 import io
 
-@nexichat.on_cmd(["ls"])
+@EsproChat.on_cmd(["ls"])
 async def ls(_, m: Message):
     "To list all files and folders."
 
@@ -246,7 +246,7 @@ async def ls(_, m: Message):
         await m.reply_text(msg)
 
 
-@nexichat.on_cmd(["start", "aistart"])
+@EsproChat.on_cmd(["start", "aistart"])
 async def start(_, m: Message):
     users = len(await get_served_users())
     chats = len(await get_served_chats())
@@ -286,7 +286,7 @@ async def start(_, m: Message):
         chat_photo = BOT  
         if m.chat.photo:
             try:
-                userss_photo = await nexichat.download_media(m.chat.photo.big_file_id)
+                userss_photo = await EsproChat.download_media(m.chat.photo.big_file_id)
                 await umm.delete()
                 if userss_photo:
                     chat_photo = userss_photo
@@ -296,10 +296,10 @@ async def start(_, m: Message):
         users = len(await get_served_users())
         chats = len(await get_served_chats())
         UP, CPU, RAM, DISK = await bot_sys_stats()
-        await m.reply_photo(photo=chat_photo, caption=START.format(nexichat.mention or "can't mention", users, chats, UP), reply_markup=InlineKeyboardMarkup(START_BOT))
+        await m.reply_photo(photo=chat_photo, caption=START.format(EsproChat.mention or "can't mention", users, chats, UP), reply_markup=InlineKeyboardMarkup(START_BOT))
         await add_served_user(m.chat.id)
         keyboard = InlineKeyboardMarkup([[InlineKeyboardButton(f"{m.chat.first_name}", user_id=m.chat.id)]])
-        await nexichat.send_photo(int(OWNER_ID), photo=chat_photo, caption=f"{m.from_user.mention} ʜᴀs sᴛᴀʀᴛᴇᴅ ʙᴏᴛ. \n\n**ɴᴀᴍᴇ :** {m.chat.first_name}\n**ᴜsᴇʀɴᴀᴍᴇ :** @{m.chat.username}\n**ɪᴅ :** {m.chat.id}\n\n**ᴛᴏᴛᴀʟ ᴜsᴇʀs :** {users}", reply_markup=keyboard)
+        await EsproChat.send_photo(int(OWNER_ID), photo=chat_photo, caption=f"{m.from_user.mention} ʜᴀs sᴛᴀʀᴛᴇᴅ ʙᴏᴛ. \n\n**ɴᴀᴍᴇ :** {m.chat.first_name}\n**ᴜsᴇʀɴᴀᴍᴇ :** @{m.chat.username}\n**ɪᴅ :** {m.chat.id}\n\n**ᴛᴏᴛᴀʟ ᴜsᴇʀs :** {users}", reply_markup=keyboard)
         
     else:
         await m.reply_photo(
@@ -310,8 +310,8 @@ async def start(_, m: Message):
         await add_served_chat(m.chat.id)
 
 
-@nexichat.on_cmd("help")
-async def help(client: nexichat, m: Message):
+@EsproChat.on_cmd("help")
+async def help(client: EsproChat, m: Message):
     if m.chat.type == ChatType.PRIVATE:
         hmm = await m.reply_photo(
             photo=random.choice(IMG),
@@ -328,7 +328,7 @@ async def help(client: nexichat, m: Message):
         await add_served_chat(m.chat.id)
 
 
-@nexichat.on_cmd("repo")
+@EsproChat.on_cmd("repo")
 async def repo(_, m: Message):
     await m.reply_text(
         text=SOURCE_READ,
@@ -338,7 +338,7 @@ async def repo(_, m: Message):
 
 
 
-@nexichat.on_cmd("ping")
+@EsproChat.on_cmd("ping")
 async def ping(_, message: Message):
     start = datetime.now()
     UP, CPU, RAM, DISK = await bot_sys_stats()
@@ -349,7 +349,7 @@ async def ping(_, message: Message):
 
     ms = (datetime.now() - start).microseconds / 1000
     await loda.edit_text(
-        text=f"нey вαву!!\n{nexichat.name} ᴄʜᴀᴛʙᴏᴛ ιѕ alιve 🥀 αnd worĸιng ғιne wιтн a pιng oғ\n\n**➥** `{ms}` ms\n**➲ ᴄᴘᴜ:** {CPU}\n**➲ ʀᴀᴍ:** {RAM}\n**➲ ᴅɪsᴋ:** {DISK}\n**➲ ᴜᴘᴛɪᴍᴇ »** {UP}\n\n<b>||**❖ ᴘᴏᴡᴇʀᴇᴅ  ➥ [ɪɴɴᴏᴄᴇɴᴛ ʙᴀᴄʜᴀ](https://t.me/{OWNER_USERNAME}) **||</b>",
+        text=f"нey вαву!!\n{EsproChat.name} ᴄʜᴀᴛʙᴏᴛ ιѕ alιve 🥀 αnd worĸιng ғιne wιтн a pιng oғ\n\n**➥** `{ms}` ms\n**➲ ᴄᴘᴜ:** {CPU}\n**➲ ʀᴀᴍ:** {RAM}\n**➲ ᴅɪsᴋ:** {DISK}\n**➲ ᴜᴘᴛɪᴍᴇ »** {UP}\n\n<b>||**❖ ᴘᴏᴡᴇʀᴇᴅ  ➥ [ɪɴɴᴏᴄᴇɴᴛ ʙᴀᴄʜᴀ](https://t.me/{OWNER_USERNAME}) **||</b>",
         reply_markup=InlineKeyboardMarkup(PNG_BTN),
     )
     if message.chat.type == ChatType.PRIVATE:
@@ -358,7 +358,7 @@ async def ping(_, message: Message):
         await add_served_chat(message.chat.id)
 
 
-@nexichat.on_message(filters.command("stats"))
+@EsproChat.on_message(filters.command("stats"))
 async def stats(cli: Client, message: Message):
     users = len(await get_served_users())
     chats = len(await get_served_chats())
@@ -372,10 +372,10 @@ async def stats(cli: Client, message: Message):
 
 from pyrogram.enums import ParseMode
 
-from nexichat import nexichat
+from EsproChat import EsproChat
 
 
-@nexichat.on_cmd("id")
+@EsproChat.on_cmd("id")
 async def getid(client, message):
     chat = message.chat
     your_id = message.from_user.id
@@ -433,7 +433,7 @@ IS_BROADCASTING = False
 broadcast_lock = asyncio.Lock()
 
 
-@nexichat.on_message(
+@EsproChat.on_message(
     filters.command(["broadcast", "gcast"]) & filters.user(int(OWNER_ID))
 )
 async def broadcast_message(client, message):
@@ -502,11 +502,11 @@ async def broadcast_message(client, message):
                         continue
                     try:
                         if broadcast_type == "reply":
-                            m = await nexichat.forward_messages(
+                            m = await EsproChat.forward_messages(
                                 chat_id, message.chat.id, [broadcast_content.id]
                             )
                         else:
-                            m = await nexichat.send_message(
+                            m = await EsproChat.send_message(
                                 chat_id, text=broadcast_content
                             )
                         sent += 1
@@ -547,11 +547,11 @@ async def broadcast_message(client, message):
                     user_id = int(user["user_id"])
                     try:
                         if broadcast_type == "reply":
-                            m = await nexichat.forward_messages(
+                            m = await EsproChat.forward_messages(
                                 user_id, message.chat.id, [broadcast_content.id]
                             )
                         else:
-                            m = await nexichat.send_message(
+                            m = await EsproChat.send_message(
                                 user_id, text=broadcast_content
                             )
                         susr += 1

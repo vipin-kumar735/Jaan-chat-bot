@@ -1,4 +1,4 @@
-from nexichat import db
+from EsproChat import db
 
 chatsdb = db.chatsdb
 

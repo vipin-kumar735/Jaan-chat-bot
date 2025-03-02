@@ -8,12 +8,12 @@ from pyrogram.errors import UserNotParticipant
 from pyrogram.enums import ChatAction, ChatMemberStatus as CMS
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
 from deep_translator import GoogleTranslator
-from nexichat.database.chats import add_served_chat
-from nexichat.database.users import add_served_user
+from EsproChat.database.chats import add_served_chat
+from EsproChat.database.users import add_served_user
 from config import MONGO_URL
-from nexichat import nexichat, mongo, LOGGER, db
-from nexichat.mplugin.helpers import chatai, CHATBOT_ON, languages
-from nexichat.modules.helpers import (
+from EsproChat import EsproChat, mongo, LOGGER, db
+from EsproChat.mplugin.helpers import chatai, CHATBOT_ON, languages
+from EsproChat.modules.helpers import (
     ABOUT_BTN,
     ABOUT_READ,
     ADMIN_READ,
@@ -100,7 +100,7 @@ async def get_chat_language(chat_id):
     return chat_lang["language"] if chat_lang and "language" in chat_lang else None
     
             
-@nexichat.on_message(filters.incoming)
+@EsproChat.on_message(filters.incoming)
 async def chatbot_response(client: Client, message: Message):
     global blocklist, message_counts
     try:
@@ -140,7 +140,7 @@ async def chatbot_response(client: Client, message: Message):
             else:
                 return await add_served_user(chat_id)
         
-        if (message.reply_to_message and message.reply_to_message.from_user.id == nexichat.id) or not message.reply_to_message:
+        if (message.reply_to_message and message.reply_to_message.from_user.id == EsproChat.id) or not message.reply_to_message:
             reply_data = await get_reply(message.text)
 
             if reply_data:

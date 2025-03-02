@@ -8,12 +8,12 @@ from pyrogram.errors import MessageEmpty
 from pyrogram.enums import ChatAction, ChatMemberStatus as CMS
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
 from deep_translator import GoogleTranslator
-from nexichat.database.chats import add_served_chat
-from nexichat.database.users import add_served_user
+from EsproChat.database.chats import add_served_chat
+from EsproChat.database.users import add_served_user
 from config import MONGO_URL
-from nexichat import nexichat, mongo, LOGGER, db
-from nexichat.mplugin.helpers import chatai, storeai, languages, CHATBOT_ON
-from nexichat.mplugin.helpers import (
+from EsproChat import EsproChat, mongo, LOGGER, db
+from EsproChat.mplugin.helpers import chatai, storeai, languages, CHATBOT_ON
+from EsproChat.mplugin.helpers import (
     ABOUT_BTN,
     ABOUT_READ,
     ADMIN_READ,

@@ -1,4 +1,4 @@
-from nexichat import db
+from EsproChat import db
 from config import OWNER_ID
 
 cloneownerdb = db.clone_owners

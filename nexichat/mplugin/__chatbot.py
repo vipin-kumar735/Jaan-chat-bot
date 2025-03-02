@@ -5,12 +5,12 @@ from pyrogram.errors import MessageEmpty
 from pyrogram.enums import ChatAction, ChatMemberStatus as CMS
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
 from deep_translator import GoogleTranslator
-from nexichat.database.chats import add_served_chat
-from nexichat.database.users import add_served_user
-from nexichat.database import add_served_cchat, add_served_cuser
+from EsproChat.database.chats import add_served_chat
+from EsproChat.database.users import add_served_user
+from EsproChat.database import add_served_cchat, add_served_cuser
 from config import MONGO_URL
-from nexichat import nexichat, mongo, LOGGER, db
-from nexichat.mplugin.helpers import chatai, CHATBOT_ON, languages
+from EsproChat import EsproChat, mongo, LOGGER, db
+from EsproChat.mplugin.helpers import chatai, CHATBOT_ON, languages
 import asyncio
 
 translator = GoogleTranslator()

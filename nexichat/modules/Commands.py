@@ -8,12 +8,12 @@ from pyrogram.errors import MessageEmpty
 from pyrogram.enums import ChatAction, ChatMemberStatus as CMS
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
 from deep_translator import GoogleTranslator
-from nexichat.database.chats import add_served_chat
-from nexichat.database.users import add_served_user
+from EsproChat.database.chats import add_served_chat
+from EsproChat.database.users import add_served_user
 from config import MONGO_URL, OWNER_ID
-from nexichat import nexichat, mongo, LOGGER, db
-from nexichat.modules.helpers import chatai, storeai, languages, CHATBOT_ON
-from nexichat.modules.helpers import (
+from EsproChat import EsproChat, mongo, LOGGER, db
+from EsproChat.modules.helpers import chatai, storeai, languages, CHATBOT_ON
+from EsproChat.modules.helpers import (
     ABOUT_BTN,
     ABOUT_READ,
     ADMIN_READ,
@@ -36,7 +36,7 @@ lang_db = db.ChatLangDb.LangCollection
 status_db = db.chatbot_status_db.status
 
 
-@nexichat.on_message(
+@EsproChat.on_message(
     filters.command(["restart"]) & filters.user(int(OWNER_ID))
 )
 async def restart(client: Client, message: Message):
@@ -61,7 +61,7 @@ async def get_chat_language(chat_id):
     chat_lang = await lang_db.find_one({"chat_id": chat_id})
     return chat_lang["language"] if chat_lang and "language" in chat_lang else "en"
     
-@nexichat.on_message(filters.command(["lang", "language", "setlang"]))
+@EsproChat.on_message(filters.command(["lang", "language", "setlang"]))
 async def set_language(client: Client, message: Message):
     await message.reply_text(
         "Please select your chat language:",
@@ -69,7 +69,7 @@ async def set_language(client: Client, message: Message):
     )
 
 
-@nexichat.on_message(filters.command("status"))
+@EsproChat.on_message(filters.command("status"))
 async def status_command(client: Client, message: Message):
     chat_id = message.chat.id
     chat_status = await status_db.find_one({"chat_id": chat_id})
@@ -80,7 +80,7 @@ async def status_command(client: Client, message: Message):
         await message.reply("No status found for this chat.")
 
 
-@nexichat.on_message(filters.command(["lang", "language", "setlang"]))
+@EsproChat.on_message(filters.command(["lang", "language", "setlang"]))
 async def set_language(client: Client, message: Message):
     await message.reply_text(
         "Please select your chat language:",
@@ -88,14 +88,14 @@ async def set_language(client: Client, message: Message):
     )
 
 
-@nexichat.on_message(filters.command(["resetlang", "nolang"]))
+@EsproChat.on_message(filters.command(["resetlang", "nolang"]))
 async def reset_language(client: Client, message: Message):
     chat_id = message.chat.id
     lang_db.update_one({"chat_id": chat_id}, {"$set": {"language": "nolang"}}, upsert=True)
     await message.reply_text("**Bot language has been reset in this chat to mix language.**")
 
 
-@nexichat.on_message(filters.command("chatbot"))
+@EsproChat.on_message(filters.command("chatbot"))
 async def chatbot_command(client: Client, message: Message):
     await message.reply_text(
         f"Chat: {message.chat.title}\n**Choose an option to enable/disable the chatbot.**",
