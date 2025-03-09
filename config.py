@@ -13,6 +13,5 @@ STRING1 = getenv("STRING_SESSION", None)
 MONGO_URL = getenv("MONGO_URL", "mongodb+srv://oliva:oliva123@cluster0.6cohqfv.mongodb.net/?retryWrites=true&w=majority")
 OWNER_ID = int(getenv("OWNER_ID", "7380417336"))
 SUPPORT_GRP = "EsproSupport"
->>>>>>> d00629df3f7bc4b1fe42a534d131c71a6951c881
 UPDATE_CHNL = "EsproUpdate"
 OWNER_USERNAME = "Ur_Haiwan"
