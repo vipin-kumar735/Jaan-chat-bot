@@ -6,12 +6,13 @@ from pyrogram import Client, filters
 
 START = """**
 {} ᴛʜᴇ ꜱᴜᴘᴇʀғᴀꜱᴛ ᴄʜᴀᴛʙᴏᴛ 💞
+
 ๏ ᴛᴏᴛᴀʟ ᴜꜱᴇʀꜱ : {}
 ๏ ᴛᴏᴛᴀʟ ᴄʜᴀᴛꜱ : {}
 ๏ ᴜᴘᴛɪᴍᴇ » {}
 
 ╔═════════════════╗
-║ ➻ [📨 Sᴜᴘᴘᴏʀᴛ](https://t.me/EsproUpdate) 🎁  
+║ ➻ 📨 Sᴜᴘᴘᴏʀᴛ[Click](https://t.me/EsproUpdate)   
 ║ ➻ ᴅᴇᴠᴇʟᴏᴘᴇʀ ➪ [𝐇αιωαη [•ᴧғᴋ•]](https://t.me/Ur_Haiwan)                        
 ╚═════════════════╝
 **"""
