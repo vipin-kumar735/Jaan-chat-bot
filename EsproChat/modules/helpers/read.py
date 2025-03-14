@@ -12,7 +12,7 @@ START = """**
 ๏ ᴜᴘᴛɪᴍᴇ » {}
 
 ╔═════════════════╗
-║ ➻ 📨 Sᴜᴘᴘᴏʀᴛ[Click](https://t.me/EsproUpdate)   
+║ ➻ 📨 Sᴜᴘᴘᴏʀᴛ ➪ [Click](https://t.me/EsproUpdate)   
 ║ ➻ ᴅᴇᴠᴇʟᴏᴘᴇʀ ➪ [𝐇αιωαη [•ᴧғᴋ•]](https://t.me/Ur_Haiwan)                        
 ╚═════════════════╝
 **"""
