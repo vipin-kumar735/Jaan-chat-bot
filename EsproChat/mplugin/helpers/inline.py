@@ -2,6 +2,7 @@ from pyrogram.types import InlineKeyboardButton
 
 from config import SUPPORT_GRP, UPDATE_CHNL
 from EsproChat import OWNER, EsproChat
+from EsproChat import CLONE_OWNERS, db
 
 
 START_BOT = [
@@ -17,7 +18,7 @@ START_BOT = [
         InlineKeyboardButton(text="✚ Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴘ ✚", url=f"https://t.me/{EsproChat.username}?startgroup=true",),
     ],
     [
-        InlineKeyboardButton(text="👤 Oᴡɴᴇʀ", user_id=OWNER),
+        InlineKeyboardButton(text="👤 Oᴡɴᴇʀ", user_id=CLONE_OWNERS),
     ],
 ]
 
