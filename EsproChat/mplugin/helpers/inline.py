@@ -7,17 +7,7 @@ from EsproChat import OWNER, EsproChat
 START_BOT = [
     
     [
-        InlineKeyboardButton(text="🔎 Hᴏᴡ Tᴏ Usᴇ? Cᴏᴍᴍᴀɴᴅ Mᴇɴᴜ",callback_data="HELP"),
-    ],
-    [
-        InlineKeyboardButton(text="📨 Sᴜᴘᴘᴏʀᴛ", url=f"https://t.me/{SUPPORT_GRP}"),
-        InlineKeyboardButton(text="📨 Cʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATE_CHNL}"),
-    ],
-    [
-        InlineKeyboardButton(text="✚ Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴘ ✚", url=f"https://t.me/{EsproChat.username}?startgroup=true",),
-    ],
-    [
-        InlineKeyboardButton(text="👤 Oᴡɴᴇʀ", user_id=OWNER_ID),
+        InlineKeyboardButton(text="🛠️ σρεи ¢σммαиdꜱ ⚙️", callback_data="HELP"),
     ],
 ]
 
