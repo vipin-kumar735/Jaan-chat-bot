@@ -2,7 +2,6 @@ from pyrogram.types import InlineKeyboardButton
 
 from config import SUPPORT_GRP, UPDATE_CHNL
 from EsproChat import OWNER, EsproChat
-from EsproChat import CLONE_OWNERS, db
 
 
 START_BOT = [
