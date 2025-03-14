@@ -7,7 +7,7 @@ from EsproChat import OWNER, EsproChat
 START_BOT = [
     
     [
-        InlineKeyboardButton(text="🛠️ σρεи ¢σммαиdꜱ ⚙️", callback_data="HELP"),
+        InlineKeyboardButton(text="🔎 Hᴏᴡ Tᴏ Usᴇ? Cᴏᴍᴍᴀɴᴅ Mᴇɴᴜ", callback_data="HELP"),
     ],
 ]
 
