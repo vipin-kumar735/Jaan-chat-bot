@@ -1,6 +1,6 @@
 from pyrogram.types import InlineKeyboardButton
 
-from config import SUPPORT_GRP, UPDATE_CHNL
+from config import SUPPORT_GRP, UPDATE_CHNL, OWNER_ID
 from EsproChat import OWNER, EsproChat
 
 
@@ -17,7 +17,7 @@ START_BOT = [
         InlineKeyboardButton(text="✚ Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴘ ✚", url=f"https://t.me/{EsproChat.username}?startgroup=true",),
     ],
     [
-        InlineKeyboardButton(text="👤 Oᴡɴᴇʀ", user_id=CLONE_OWNERS),
+        InlineKeyboardButton(text="👤 Oᴡɴᴇʀ", user_id=OWNER_ID),
     ],
 ]
 
