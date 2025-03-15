@@ -156,7 +156,7 @@ bye_messages = [
 ]
 
 # **Welcome Message**
-@app.on_message(filters.group & filters.new_chat_members)
+@EsproChat.on_message(filters.group & filters.new_chat_members)
 async def welcome(client, message):
     for member in message.new_chat_members:
         username = member.username
@@ -173,7 +173,7 @@ async def welcome(client, message):
             logging.error(f"Failed to send welcome message: {e}")
 
 # **Bye Message**
-@app.on_message(filters.group & filters.left_chat_member)
+@EsproChat.on_message(filters.group & filters.left_chat_member)
 async def goodbye(client, message):
     member = message.left_chat_member
     name = member.first_name if member.first_name else "User"
