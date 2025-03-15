@@ -2,8 +2,6 @@ from EsproChat import app
 import random
 from pyrogram import Client, filters
 
-
-# Alag-alag welcome messages ka list
 welcome_messages = [
     "Kese ho aap?",
     "Aap kaise ho?",
@@ -21,7 +19,6 @@ def welcome(client, message):
         
         mention = f"[{name}](https://t.me/{username})" if username else name
 
-        # Random message select karna
         random_message = random.choice(welcome_messages)
 
         welcome_text = f"{mention}, Welcome Baby 😁❤️\n{random_message}"
