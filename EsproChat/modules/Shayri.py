@@ -179,7 +179,7 @@ async def goodbye(client, message):
     name = member.first_name if member.first_name else "User"
     
     random_message = random.choice(bye_messages)
-    bye_text = f"{name}, {random_message} 😢"
+    bye_text = f"{mention}, Bye Baby 👋😂{random_message} 😢"
 
     try:
         await client.send_message(chat_id=message.chat.id, text=bye_text, disable_web_page_preview=True)
