@@ -1,4 +1,4 @@
-from EsproChat import EsproChat as app
+from EsproChat import app
 import random
 from pyrogram import Client, filters
 
