@@ -135,6 +135,30 @@ async def send_good_morning():
         except Exception as e:
             continue
 
+
+welcome_messages = [
+    "Kese ho aap?",
+    "Aap kaise ho?",
+    "Mujhe aap se milke accha laga!",
+    "Aap ka din shubh ho!",
+    "Umeed hai aap maze me ho!",
+    "Kaise chal raha hai sab?"
+]
+
+@EsproChat.on_message(filters.group & filters.new_chat_members)
+def welcome(client, message):
+    for member in message.new_chat_members:
+        username = member.username
+        name = member.first_name if member.first_name else "User"
+        
+        mention = f"[{name}](https://t.me/{username})" if username else name
+
+        random_message = random.choice(welcome_messages)
+
+        welcome_text = f"{mention}, Welcome Baby 😁❤️\n{random_message}"
+        message.reply_text(welcome_text, disable_web_page_preview=True)
+        
+
 async def restart_EsproChat():
     os.system(f"kill -9 {os.getpid()} && bash start")
 
