@@ -137,58 +137,33 @@ async def send_good_morning():
         except Exception as e:
             continue
 
+# vc on
+@EsproChat.on_message(filters.video_chat_started)
+async def brah(_, msg):
+       await msg.reply("ᴠᴏɪᴄᴇ ᴄʜᴀᴛ sᴛᴀʀᴛᴇᴅ")
+# vc off
+@EsproChat.on_message(filters.video_chat_ended)
+async def brah2(_, msg):
+       await msg.reply("**ᴠᴏɪᴄᴇ ᴄʜᴀᴛ ᴇɴᴅᴇᴅ**")
 
-welcome_messages = [
-    "Kese ho aap?",
-    "Aap kaise ho?",
-    "Mujhe aap se milke accha laga!",
-    "Aap ka din shubh ho!",
-    "Umeed hai aap maze me ho!",
-    "Kaise chal raha hai sab?"
-]
+# invite members on vc
+@EsproChat.on_message(filters.video_chat_members_invited)
+async def brah3(app :app, message:Message):
+           text = f"{message.from_user.mention} ɪɴᴠɪᴛᴇᴅ "
+           x = 0
+           for user in message.video_chat_members_invited.users:
+             try:
+               text += f"[{user.first_name}](tg://user?id={user.id}) "
+               x += 1
+             except Exception:
+               pass
+           try:
+             await message.reply(f"{text} 😉")
+           except:
+             pass
 
-bye_messages = [
-    "Bye Bye! Phir milenge!",
-    "Fir se aana mat bhoolna!",
-    "Alvida! Aapki yaad aayegi!",
-    "Chale gaye? Udasi ho rahi hai!",
-    "Goodbye! Stay Safe!"
-]
 
-# **Welcome Message**
-@EsproChat.on_message(filters.group & filters.new_chat_members)
-async def welcome(client, message):
-    for member in message.new_chat_members:
-        username = member.username
-        name = member.first_name if member.first_name else "User"
-        
-        mention = f"[{name}](https://t.me/{username})" if username else name
-        random_message = random.choice(welcome_messages)
-        welcome_text = f"{mention}, Welcome Baby 😁❤️\n{random_message}"
-
-        try:
-            await client.send_message(chat_id=message.chat.id, text=welcome_text, disable_web_page_preview=True)
-            logging.info(f"Welcomed new member: {name} ({'@' + username if username else 'No Username'})")
-        except Exception as e:
-            logging.error(f"Failed to send welcome message: {e}")
-
-# **Bye Message**
-@EsproChat.on_message(filters.group & filters.left_chat_member)
-async def goodbye(client, message):
-    member = message.left_chat_member
-    username = member.username
-    name = member.first_name if member.first_name else "User"
-
-    mention = f"[{name}](https://t.me/{username})" if username else name
-    random_message = random.choice(bye_messages)
-    bye_text = f"{mention}, Bye Baby 👋😂\n{random_message} 😢"
-
-    try:
-        await client.send_message(chat_id=message.chat.id, text=bye_text, disable_web_page_preview=True)
-        logging.info(f"Member left: {name}")
-    except Exception as e:
-        logging.error(f"Failed to send goodbye message: {e}")
-
+####
 async def restart_EsproChat():
     os.system(f"kill -9 {os.getpid()} && bash start")
 
