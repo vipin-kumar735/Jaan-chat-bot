@@ -3,7 +3,7 @@ from PIL import ImageDraw, Image, ImageFont, ImageChops
 from pyrogram import *
 from pyrogram.types import *
 from logging import getLogger
-from EsproChat import EsproChat
+from EsproChat import EsproChat as app
 
 LOGGER = getLogger(__name__)
 
@@ -16,17 +16,19 @@ class temp:
     B_NAME = None
 
 def circle(pfp, size=(500, 500)):
-    pfp = pfp.resize(size, Image.ANTIALIAS).convert("RGBA")
+    """ Convert Image to Circular Format """
+    pfp = pfp.resize(size, Image.LANCZOS).convert("RGBA")  # Fixed Pillow error
     bigsize = (pfp.size[0] * 3, pfp.size[1] * 3)
     mask = Image.new("L", bigsize, 0)
     draw = ImageDraw.Draw(mask)
     draw.ellipse((0, 0) + bigsize, fill=255)
-    mask = mask.resize(pfp.size, Image.ANTIALIAS)
+    mask = mask.resize(pfp.size, Image.LANCZOS)  # Fixed Pillow error
     mask = ImageChops.darker(mask, pfp.split()[-1])
     pfp.putalpha(mask)
     return pfp
 
 def welcomepic(pic, user, chatname, id, uname):
+    """ Generate Welcome Image """
     background = Image.open("EsproChat/assets/wel2.png")
     pfp = Image.open(pic).convert("RGBA")
     pfp = circle(pfp)
@@ -41,6 +43,7 @@ def welcomepic(pic, user, chatname, id, uname):
 
 @EsproChat.on_chat_member_updated(filters.group, group=-3)
 async def greet_group(_, member: ChatMemberUpdated):
+    """ Welcome New Members with Image """
     if (
         not member.new_chat_member
         or member.new_chat_member.status in {"banned", "left", "restricted"}
@@ -87,3 +90,17 @@ Usᴇʀɴᴀᴍᴇ ✧ @{user.username}
         os.remove(f"downloads/pp{user.id}.png")
     except Exception as e:
         pass
+
+@EsproChat.on_message(filters.new_chat_members & filters.group, group=-1)
+async def bot_wel(_, message):
+    """ Notify When Bot Joins a New Group """
+    for u in message.new_chat_members:
+        if u.id == EsproChat.me.id:
+            await EsproChat.send_message(LOG_CHANNEL_ID, f"""
+**NEW GROUP
+➖➖➖➖➖➖➖➖➖➖➖➖
+NAME: {message.chat.title}
+ID: {message.chat.id}
+USERNAME: @{message.chat.username}
+➖➖➖➖➖➖➖➖➖➖➖➖**
+""")
