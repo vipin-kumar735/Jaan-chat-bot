@@ -56,60 +56,70 @@ font_path = "EsproChat/assets/hiroko.ttf"
 
 # --------------------------------------------------------------------------------- #
 
-# -------------
-
 @app.on_chat_member_updated(filters.group, group=20)
-async def member_has_left(client: app, member: ChatMemberUpdated):
+async def member_update_handler(client: app, member: ChatMemberUpdated):
+    user = member.new_chat_member.user if member.new_chat_member else member.from_user
 
-    if (
-        not member.new_chat_member
-        and member.old_chat_member.status not in {
-            "banned", "left", "restricted"
-        }
-        and member.old_chat_member
-    ):
-        pass
-    else:
-        return
+    # ------------ New Member Joins (Welcome Message) ------------ #
+    if member.new_chat_member and member.new_chat_member.status in {"member"}:
+        if user.photo and user.photo.big_file_id:
+            try:
+                photo = await app.download_media(user.photo.big_file_id)
+                welcome_photo = await get_userinfo_img(
+                    bg_path=bg_path,
+                    font_path=font_path,
+                    user_id=user.id,
+                    profile_path=photo,
+                )
+                
+                caption = f"**#Welcome**\n\n**๏** {user.mention} **ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴛʜᴇ ɢʀᴏᴜᴘ!** 🎉\n**๏ ʜᴀᴠᴇ ᴀ ɢʀᴇᴀᴛ ᴛɪᴍᴇ!**"
+                button_text = "๏ ᴠɪᴇᴡ ᴜsᴇʀ ๏"
+                deep_link = f"tg://openmessage?user_id={user.id}"
 
-    user = (
-        member.old_chat_member.user
-        if member.old_chat_member
-        else member.from_user
-    )
-
-    # Check if the user has a profile photo
-    if user.photo and user.photo.big_file_id:
-        try:
-            # Add the photo path, caption, and button details
-            photo = await app.download_media(user.photo.big_file_id)
-
-            welcome_photo = await get_userinfo_img(
-                bg_path=bg_path,
-                font_path=font_path,
-                user_id=user.id,
-                profile_path=photo,
-            )
-        
-            caption = f"**#New_Member_Left**\n\n**๏** {user.mention} **ʜᴀs ʟᴇғᴛ ᴛʜɪs ɢʀᴏᴜᴘ**\n**๏ sᴇᴇ ʏᴏᴜ sᴏᴏɴ ᴀɢᴀɪɴ..!**"
-            button_text = "๏ ᴠɪᴇᴡ ᴜsᴇʀ ๏"
-
-            # Generate a deep link to open the user's profile
-            deep_link = f"tg://openmessage?user_id={user.id}"
-
-            # Send the message with the photo, caption, and button
-            await client.send_photo(
+                await client.send_photo(
+                    chat_id=member.chat.id,
+                    photo=welcome_photo,
+                    caption=caption,
+                    reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton(button_text, url=deep_link)]
+                    ])
+                )
+            except RPCError as e:
+                print(e)
+        else:
+            await client.send_message(
                 chat_id=member.chat.id,
-                photo=welcome_photo,
-                caption=caption,
-                reply_markup=InlineKeyboardMarkup([
-                    [InlineKeyboardButton(button_text, url=deep_link)]
-                ])
+                text=f"**#Welcome**\n\n**๏** {user.mention} **ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴛʜᴇ ɢʀᴏᴜᴘ!** 🎉\n**๏ ʜᴀᴠᴇ ᴀ ɢʀᴇᴀᴛ ᴛɪᴍᴇ!**"
             )
-        except RPCError as e:
-            print(e)
-            return
-    else:
-        # Handle the case where the user has no profile photo
-        print(f"User {user.id} has no profile photo.")
 
+    # ------------ Member Leaves (Goodbye Message) ------------ #
+    elif member.old_chat_member and member.old_chat_member.status not in {"banned", "left", "restricted"}:
+        if user.photo and user.photo.big_file_id:
+            try:
+                photo = await app.download_media(user.photo.big_file_id)
+                goodbye_photo = await get_userinfo_img(
+                    bg_path=bg_path,
+                    font_path=font_path,
+                    user_id=user.id,
+                    profile_path=photo,
+                )
+
+                caption = f"**#Goodbye**\n\n**๏** {user.mention} **ʜᴀs ʟᴇғᴛ ᴛʜɪs ɢʀᴏᴜᴘ** 😢\n**๏ sᴇᴇ ʏᴏᴜ ᴀɢᴀɪɴ..!**"
+                button_text = "๏ ᴠɪᴇᴡ ᴜsᴇʀ ๏"
+                deep_link = f"tg://openmessage?user_id={user.id}"
+
+                await client.send_photo(
+                    chat_id=member.chat.id,
+                    photo=goodbye_photo,
+                    caption=caption,
+                    reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton(button_text, url=deep_link)]
+                    ])
+                )
+            except RPCError as e:
+                print(e)
+        else:
+            await client.send_message(
+                chat_id=member.chat.id,
+                text=f"**#Goodbye**\n\n**๏** {user.mention} **ʜᴀs ʟᴇғᴛ ᴛʜɪs ɢʀᴏᴜᴘ** 😢\n**๏ sᴇᴇ ʏᴏᴜ ᴀɢᴀɪɴ..!**"
+                )
