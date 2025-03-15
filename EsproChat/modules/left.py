@@ -6,7 +6,7 @@ from os import environ
 from typing import Union, Optional
 from PIL import Image, ImageDraw, ImageFont
 
----------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------₹
 
 get_font = lambda font_size, font_path: ImageFont.truetype(font_path, font_size)
 resize_text = (
@@ -15,7 +15,7 @@ if len(text) > text_size
 else text.upper()
 )
 
----------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------#
 
 async def get_userinfo_img(
 bg_path: str,
@@ -49,14 +49,12 @@ path = f"./userinfo_img_{user_id}.png"
 bg.save(path)  
 return path
 
----------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------#
 
 bg_path = "EsproChat/assets/userinfo.png"
 font_path = "EsproChat/assets/hiroko.ttf"
 
----------------------------------------------------------------------------------
-
--------------
+#---------------------------------------------------------------------------------#
 
 @app.on_chat_member_updated(filters.group, group=20)
 async def member_has_left(client: app, member: ChatMemberUpdated):
