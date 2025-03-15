@@ -145,18 +145,17 @@ welcome_messages = [
     "Kaise chal raha hai sab?"
 ]
 
-@EsproChat.on_message(filters.group & filters.new_chat_members)
-def welcome(client, message):
+@app.on_message(filters.group & filters.new_chat_members)
+async def welcome(client, message):  # Function ko async banaya
     for member in message.new_chat_members:
         username = member.username
         name = member.first_name if member.first_name else "User"
         
         mention = f"[{name}](https://t.me/{username})" if username else name
-
         random_message = random.choice(welcome_messages)
-
         welcome_text = f"{mention}, Welcome Baby 😁❤️\n{random_message}"
-        message.reply_text(welcome_text, disable_web_page_preview=True)
+
+        await message.reply_text(welcome_text, disable_web_page_preview=True)  # Await lagaya
         
 
 async def restart_EsproChat():
