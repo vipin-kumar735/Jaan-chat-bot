@@ -6,8 +6,10 @@ from EsproChat import EsproChat
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from pyrogram import filters
 import random
+import logging
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-
+# Logging setup
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
 user_last_message_time = {}
 user_command_count = {}
@@ -145,8 +147,17 @@ welcome_messages = [
     "Kaise chal raha hai sab?"
 ]
 
-@EsproChat.on_message(filters.group & filters.new_chat_members)
-async def welcome(client, message):  # Function ko async banaya
+bye_messages = [
+    "Bye Bye! Phir milenge!",
+    "Fir se aana mat bhoolna!",
+    "Alvida! Aapki yaad aayegi!",
+    "Chale gaye? Udasi ho rahi hai!",
+    "Goodbye! Stay Safe!"
+]
+
+# **Welcome Message**
+@app.on_message(filters.group & filters.new_chat_members)
+async def welcome(client, message):
     for member in message.new_chat_members:
         username = member.username
         name = member.first_name if member.first_name else "User"
@@ -155,8 +166,26 @@ async def welcome(client, message):  # Function ko async banaya
         random_message = random.choice(welcome_messages)
         welcome_text = f"{mention}, Welcome Baby 😁❤️\n{random_message}"
 
-        await message.reply_text(welcome_text, disable_web_page_preview=True)  # Await lagaya
-        
+        try:
+            await client.send_message(chat_id=message.chat.id, text=welcome_text, disable_web_page_preview=True)
+            logging.info(f"Welcomed new member: {name} ({'@' + username if username else 'No Username'})")
+        except Exception as e:
+            logging.error(f"Failed to send welcome message: {e}")
+
+# **Bye Message**
+@app.on_message(filters.group & filters.left_chat_member)
+async def goodbye(client, message):
+    member = message.left_chat_member
+    name = member.first_name if member.first_name else "User"
+    
+    random_message = random.choice(bye_messages)
+    bye_text = f"{name}, {random_message} 😢"
+
+    try:
+        await client.send_message(chat_id=message.chat.id, text=bye_text, disable_web_page_preview=True)
+        logging.info(f"Member left: {name}")
+    except Exception as e:
+        logging.error(f"Failed to send goodbye message: {e}")
 
 async def restart_EsproChat():
     os.system(f"kill -9 {os.getpid()} && bash start")
