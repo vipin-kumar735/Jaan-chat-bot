@@ -176,10 +176,12 @@ async def welcome(client, message):
 @EsproChat.on_message(filters.group & filters.left_chat_member)
 async def goodbye(client, message):
     member = message.left_chat_member
+    username = member.username
     name = member.first_name if member.first_name else "User"
-    
+
+    mention = f"[{name}](https://t.me/{username})" if username else name
     random_message = random.choice(bye_messages)
-    bye_text = f"{mention}, Bye Baby 👋😂{random_message} 😢"
+    bye_text = f"{mention}, Bye Baby 👋😂\n{random_message} 😢"
 
     try:
         await client.send_message(chat_id=message.chat.id, text=bye_text, disable_web_page_preview=True)
