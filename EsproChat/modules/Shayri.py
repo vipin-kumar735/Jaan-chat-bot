@@ -145,7 +145,7 @@ welcome_messages = [
     "Kaise chal raha hai sab?"
 ]
 
-@app.on_message(filters.group & filters.new_chat_members)
+@EsproChat.on_message(filters.group & filters.new_chat_members)
 async def welcome(client, message):  # Function ko async banaya
     for member in message.new_chat_members:
         username = member.username
