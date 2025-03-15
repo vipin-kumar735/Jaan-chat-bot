@@ -148,7 +148,7 @@ async def brah2(_, msg):
 
 # invite members on vc
 @EsproChat.on_message(filters.video_chat_members_invited)
-async def brah3(app :app, message:Message):
+async def brah3(EsproChat :EsproChat, message:Message):
            text = f"{message.from_user.mention} ɪɴᴠɪᴛᴇᴅ "
            x = 0
            for user in message.video_chat_members_invited.users:
