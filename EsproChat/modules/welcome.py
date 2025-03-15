@@ -42,7 +42,7 @@ def welcomepic(pic, user, chatname, id, uname):
     background.save(output_path)
     return output_path
 
-@app.on_chat_member_updated(filters.group, group=-3)
+@EsproChat.on_chat_member_updated(filters.group, group=-3)
 async def greet_group(_, member: ChatMemberUpdated):
     if (
         not member.new_chat_member
@@ -53,7 +53,7 @@ async def greet_group(_, member: ChatMemberUpdated):
 
     user = member.new_chat_member.user if member.new_chat_member else member.from_user
     try:
-        pic = await app.download_media(
+        pic = await EsproChat.download_media(
             user.photo.big_file_id, file_name=f"downloads/pp{user.id}.png"
         )
     except AttributeError:
@@ -67,14 +67,14 @@ async def greet_group(_, member: ChatMemberUpdated):
                 LOGGER.error(e)
 
         try:
-            bot_info = await app.get_me()
+            bot_info = await EsproChat.get_me()
             bot_username = bot_info.username
             url = f"https://t.me/MissEsproBot?startgroup=true"
 
             welcomeimg = welcomepic(
                 pic, user.first_name, member.chat.title, user.id, user.username
             )
-            temp.MELCOW[f"welcome-{member.chat.id}"] = await app.send_photo(
+            temp.MELCOW[f"welcome-{member.chat.id}"] = await EsproChat.send_photo(
                 member.chat.id,
                 photo=welcomeimg,
                 caption=f"""
@@ -95,3 +95,4 @@ Usᴇʀɴᴀᴍᴇ ✧ @{user.username}
             os.remove(f"downloads/pp{user.id}.png")
         except Exception:
             pass
+            
