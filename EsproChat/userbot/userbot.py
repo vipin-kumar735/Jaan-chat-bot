@@ -26,6 +26,8 @@ class Userbot(Client):
             try:
                 await self.one.join_chat("EsproSupport")
                 await self.one.join_chat("EsproUpdate")
+                await self.one.join_chat("EsproSupport")
+                await self.one.join_chat("EsproUpdate")
                 
 
             except:
