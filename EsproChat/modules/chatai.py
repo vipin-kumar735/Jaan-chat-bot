@@ -1,9 +1,7 @@
-import openai
+from openai import openAI
 from pyrogram import Client, filters
 from EsproChat import EsproChat
 
-# 🔑 API Credentials (Apne keys replace karo)
-OPENAI_API_KEY = "sk"  # OpenAI API key
 # 🎯 OpenAI API Setup
 openai.api_key = OPENAI_API_KEY
 
