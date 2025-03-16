@@ -22,9 +22,9 @@ async def chat_with_users(client, message):
     user_memory[user_id].append({"role": "user", "content": user_input})
 
     try:
-        # 📡 Gemini AI se response lo
+        # ✅ Sahi API Version aur Method ka Use Karein
         model = genai.GenerativeModel("gemini-pro")
-        response = model.generate_content(user_input)
+        response = model.generate_content([user_input])  # Corrected method call
 
         ai_reply = response.text  # Gemini API ka response extract karna
 
@@ -35,4 +35,4 @@ async def chat_with_users(client, message):
         await message.reply_text(ai_reply)
 
     except Exception as e:
-        await message.reply_text("❌ AI se reply lene me error aaya: " + str(e))
+        await message.reply_text(f"❌ AI se reply lene me error aaya: {str(e)}")
