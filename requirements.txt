@@ -17,4 +17,4 @@ uvloop
 psutil
 langdetect
 MukeshAPI
-openai
+openai==0.28
