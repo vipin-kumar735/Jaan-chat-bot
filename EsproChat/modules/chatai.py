@@ -3,7 +3,7 @@ from pyrogram import Client, filters
 from EsproChat import EsproChat
 
 # 🔑 API Credentials (Apne keys replace karo)
-OPENAI_API_KEY = "your_openai_api_key"  # OpenAI API key
+OPENAI_API_KEY = "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"  # OpenAI API key
 # 🎯 OpenAI API Setup
 openai.api_key = OPENAI_API_KEY
 
