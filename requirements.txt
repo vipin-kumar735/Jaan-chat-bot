@@ -17,4 +17,4 @@ uvloop
 psutil
 langdetect
 MukeshAPI
-openai==0.28
+google-generativeai
