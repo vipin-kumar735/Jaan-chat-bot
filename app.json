@@ -11,7 +11,7 @@
     "buildpacks": [{
     "url": "heroku/python"
   }],
-  "repository": "https://github.com/TeamEspro/EsproChatBot",
+  "repository": "https://github.com/vipin-kumar735/Jaan-chat-bot",
   "env": {
     "BOT_TOKEN": {
       "description": "A Bot token from @BotFather",
